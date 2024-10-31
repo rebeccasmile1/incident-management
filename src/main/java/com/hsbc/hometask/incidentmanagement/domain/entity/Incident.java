@@ -1,6 +1,6 @@
 package com.hsbc.hometask.incidentmanagement.domain.entity;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,11 +20,6 @@ public class Incident {
 
     private String description;
 
-    @NotNull
     private Integer status;
-
-    private LocalDateTime timestamp = LocalDateTime.now();
-
-    // Getters and setters
 }
 
