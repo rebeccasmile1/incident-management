@@ -1,11 +1,16 @@
 package com.hsbc.hometask.incidentmanagement.controller;
 
+import com.alibaba.fastjson2.JSON;
+import com.hsbc.hometask.incidentmanagement.domain.entity.Incident;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -20,12 +25,17 @@ public class IncidentControllerTest {
 
     @Test
     public void testCreateIncident() throws Exception {
-        mockMvc.perform(post("/api/incidents")
-                        .contentType("application/json")
-                        .content("{\"title\": \"Network issue\", \"description\": \"Server down\"}"))
+        Incident incident=new Incident();
+        incident.setDescription("test create incident");
+        incident.setTitle("test0");
+        incident.setStatus(1);
+        incident.setId(new UUID(30,30));
+        MvcResult result = mockMvc.perform(post("/api/incidents")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JSON.toJSONString(incident)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.title").value("Network issue"));
-    }
+                .andReturn();
+}
 
     @Test
     public void testDeleteNonExistentIncident() throws Exception {

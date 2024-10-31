@@ -11,6 +11,7 @@ import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -19,11 +20,8 @@ import java.util.UUID;
 @RequestMapping("/api/incidents")
 public class IncidentController {
 
-    private final IncidentService incidentService;
-
-    public IncidentController(IncidentService incidentService) {
-        this.incidentService = incidentService;
-    }
+    @Resource
+    private IncidentService incidentService;
 
     @PostMapping
     public ResponseEntity<Incident> createIncident(@Valid @RequestBody Incident incident) {
